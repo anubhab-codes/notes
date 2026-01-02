@@ -1,0 +1,1753 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A new project generated from the default template project.">
+      
+      
+        <meta name="author" content="<your name here>">
+      
+      
+      
+        <link rel="prev" href="../../linux/user-access-in-linux-servers/">
+      
+      
+        <link rel="next" href="../networking-basics/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.15">
+    
+    
+      
+        <title>DNS Basics - Documentation</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.f1b6466b.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+  
+  <style>:root{}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dns-basics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DNS Basics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Get started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Devops
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Devops
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Introduction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/why-devops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why DevOps?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/linux-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional use cases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/linux-filesystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux File system
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/linux-process-signal-ports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process, Signals and Ports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/user-access-in-linux-servers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Management in Linux Servers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS Basics
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-names-become-ip-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How names become IP addresses
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-why-dns-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The problem (why DNS exists)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#name-resolution-the-basic-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Name resolution (the basic idea)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-etchosts-does-not-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why /etc/hosts does not scale
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns-server-central-source-of-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS server (central source of truth)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcresolvconf-where-linux-looks-for-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/resolv.conf (where Linux looks for DNS)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-override-still-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local override still exists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resolution-order-who-is-asked-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resolution order (who is asked first)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns-for-the-internet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS for the internet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domain-names-how-names-are-structured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain names (how names are structured)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-dns-resolution-actually-happens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How DNS resolution actually happens
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#search-domains-short-names-inside-organizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search domains (short names inside organizations)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns-record-types-what-dns-stores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS record types (what DNS stores)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DNS record types (what DNS stores)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A record
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aaaa-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AAAA record
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cname-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CNAME record
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-dns-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing DNS resolution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing DNS resolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nslookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nslookup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dig
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-john-understands-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What John understands now
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-names-become-ip-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How names become IP addresses
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-why-dns-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The problem (why DNS exists)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#name-resolution-the-basic-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Name resolution (the basic idea)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-etchosts-does-not-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why /etc/hosts does not scale
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns-server-central-source-of-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS server (central source of truth)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcresolvconf-where-linux-looks-for-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/resolv.conf (where Linux looks for DNS)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-override-still-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local override still exists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resolution-order-who-is-asked-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resolution order (who is asked first)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns-for-the-internet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS for the internet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domain-names-how-names-are-structured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain names (how names are structured)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-dns-resolution-actually-happens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How DNS resolution actually happens
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#search-domains-short-names-inside-organizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search domains (short names inside organizations)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns-record-types-what-dns-stores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS record types (what DNS stores)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DNS record types (what DNS stores)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A record
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aaaa-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AAAA record
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cname-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CNAME record
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-dns-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing DNS resolution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing DNS resolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nslookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nslookup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dig
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-john-understands-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What John understands now
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick cheat sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Get started
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../introduction/why-devops/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Devops
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Networking
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="dns-basics">DNS Basics<a class="headerlink" href="#dns-basics" title="Permanent link">&para;</a></h1>
+<h2 id="how-names-become-ip-addresses">How names become IP addresses<a class="headerlink" href="#how-names-become-ip-addresses" title="Permanent link">&para;</a></h2>
+<p>John now has machines talking to each other across networks.<br />
+Networking works.</p>
+<p>But there is still a problem.</p>
+<p>Communicating using <strong>IP addresses</strong> is painful.<br />
+IPs are hard to remember and do not explain what a machine actually does.</p>
+<p>This is where <strong>DNS</strong> comes in.</p>
+<hr />
+<h2 id="the-problem-why-dns-exists">The problem (why DNS exists)<a class="headerlink" href="#the-problem-why-dns-exists" title="Permanent link">&para;</a></h2>
+<p>John has a database server with this IP:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>192.168.1.1
+</span></code></pre></div>
+<p>He can reach it, but:</p>
+<ul>
+<li>The IP does not say what the machine is</li>
+<li>Humans do not remember IPs easily</li>
+<li>IPs can change</li>
+</ul>
+<p>John wants to say:</p>
+<blockquote>
+<p>“Connect to the database server”</p>
+</blockquote>
+<p>not:</p>
+<blockquote>
+<p>“Connect to 192.168.1.1”</p>
+</blockquote>
+<hr />
+<h2 id="name-resolution-the-basic-idea">Name resolution (the basic idea)<a class="headerlink" href="#name-resolution-the-basic-idea" title="Permanent link">&para;</a></h2>
+<p><strong>Name resolution</strong> means:</p>
+<blockquote>
+<p>Converting a name into an IP address</p>
+</blockquote>
+<p>Example:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>db  →  192.168.1.1
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>````
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Linux always performs name resolution before connecting to a host.
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>---
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>## `/etc/hosts` (local name resolution)
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>John starts with the simplest method.
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>He edits:
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>```bash
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>/etc/hosts
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>````
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>Adds:
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>```text
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>192.168.1.1 db
+</span></code></pre></div></p>
+<p>Now he runs:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ping<span class="w"> </span>db
+</span></code></pre></div>
+<p>It works.</p>
+<p>Linux replaced <code>db</code> with <code>192.168.1.1</code>.</p>
+<hr />
+<h2 id="why-etchosts-does-not-scale">Why <code>/etc/hosts</code> does not scale<a class="headerlink" href="#why-etchosts-does-not-scale" title="Permanent link">&para;</a></h2>
+<p><code>/etc/hosts</code> works, but it has serious limitations.</p>
+<ul>
+<li>It is <strong>local</strong> to one system</li>
+<li>Another system may use a different name for the same IP</li>
+<li>IP changes require updating every machine</li>
+<li>Wrong entries can silently break communication</li>
+</ul>
+<p>This approach works only for:</p>
+<ul>
+<li>Very small setups</li>
+<li>Temporary test systems</li>
+</ul>
+<p>For large environments, this <strong>does not scale</strong>.</p>
+<hr />
+<h2 id="dns-server-central-source-of-truth">DNS server (central source of truth)<a class="headerlink" href="#dns-server-central-source-of-truth" title="Permanent link">&para;</a></h2>
+<p>Instead of every machine maintaining its own mapping, John introduces a <strong>DNS server</strong>.</p>
+<p>Now:</p>
+<ul>
+<li>One system stores name → IP mappings</li>
+<li>All hosts query it</li>
+<li>Changes are made in one place</li>
+</ul>
+<p>This becomes the <strong>source of truth</strong>.</p>
+<hr />
+<h2 id="etcresolvconf-where-linux-looks-for-dns"><code>/etc/resolv.conf</code> (where Linux looks for DNS)<a class="headerlink" href="#etcresolvconf-where-linux-looks-for-dns" title="Permanent link">&para;</a></h2>
+<p>Each Linux host must know <strong>which DNS server to ask</strong>.</p>
+<p>John checks:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>cat<span class="w"> </span>/etc/resolv.conf
+</span></code></pre></div>
+<p>He adds:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>nameserver 192.168.1.53
+</span></code></pre></div>
+<p>Now:</p>
+<ul>
+<li>Every hostname lookup goes to the DNS server</li>
+<li><code>/etc/hosts</code> is no longer the only source</li>
+</ul>
+<hr />
+<h2 id="local-override-still-exists">Local override still exists<a class="headerlink" href="#local-override-still-exists" title="Permanent link">&para;</a></h2>
+<p>Even with DNS configured, <code>/etc/hosts</code> still works.</p>
+<p>John can add temporary entries:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>192.168.1.100 temp-db
+</span></code></pre></div>
+<p>No DNS change required.</p>
+<p>This is useful for:</p>
+<ul>
+<li>Testing</li>
+<li>Temporary servers</li>
+<li>Debugging</li>
+</ul>
+<hr />
+<h2 id="resolution-order-who-is-asked-first">Resolution order (who is asked first)<a class="headerlink" href="#resolution-order-who-is-asked-first" title="Permanent link">&para;</a></h2>
+<p>Linux follows an <strong>order</strong> when resolving names.</p>
+<p>That order is defined in:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/etc/nsswitch.conf
+</span></code></pre></div>
+<p>John checks the <code>hosts</code> line:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>hosts: files dns
+</span></code></pre></div>
+<p>Meaning:</p>
+<ol>
+<li>Check <code>/etc/hosts</code></li>
+<li>If not found, query DNS</li>
+</ol>
+<p>This order can be changed, but the default is sensible.</p>
+<hr />
+<h2 id="dns-for-the-internet">DNS for the internet<a class="headerlink" href="#dns-for-the-internet" title="Permanent link">&para;</a></h2>
+<p>Internal DNS servers cannot resolve internet domains by themselves.</p>
+<p>To fix this, John configures DNS forwarding.</p>
+<p>The DNS server forwards unknown requests to public DNS servers like:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>8.8.8.8
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>8.8.4.4
+</span></code></pre></div>
+<p>Now:</p>
+<ul>
+<li>Internal names resolve internally</li>
+<li>External names resolve via the internet</li>
+</ul>
+<hr />
+<h2 id="domain-names-how-names-are-structured">Domain names (how names are structured)<a class="headerlink" href="#domain-names-how-names-are-structured" title="Permanent link">&para;</a></h2>
+<p>DNS names are hierarchical.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>apps.google.com
+</span></code></pre></div>
+<p>Breakdown:</p>
+<ul>
+<li><code>.com</code> → top-level domain</li>
+<li><code>google</code> → domain</li>
+<li><code>apps</code> → subdomain</li>
+</ul>
+<p>Other top-level domains:</p>
+<ul>
+<li><code>.com</code> → commercial</li>
+<li><code>.net</code> → network</li>
+<li><code>.org</code> → organization</li>
+<li><code>.edu</code> → education</li>
+<li><code>.io</code> → Indian Ocean territory (popular in tech)</li>
+</ul>
+<hr />
+<h2 id="how-dns-resolution-actually-happens">How DNS resolution actually happens<a class="headerlink" href="#how-dns-resolution-actually-happens" title="Permanent link">&para;</a></h2>
+<p>When John accesses:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>apps.google.com
+</span></code></pre></div>
+<p>Resolution flow:</p>
+<ol>
+<li>Organization DNS checks cache</li>
+<li>If not found, asks root DNS</li>
+<li>Root DNS points to <code>.com</code> DNS</li>
+<li><code>.com</code> DNS points to Google DNS</li>
+<li>Google DNS returns IP for <code>apps.google.com</code></li>
+</ol>
+<p>The result is cached so the next request is faster.</p>
+<hr />
+<h2 id="search-domains-short-names-inside-organizations">Search domains (short names inside organizations)<a class="headerlink" href="#search-domains-short-names-inside-organizations" title="Permanent link">&para;</a></h2>
+<p>Inside John’s company, the database server is named:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>db.mycompany.com
+</span></code></pre></div>
+<p>John wants to type:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ping<span class="w"> </span>db
+</span></code></pre></div>
+<p>Linux supports this using <strong>search domains</strong>.</p>
+<p>In <code>/etc/resolv.conf</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>search mycompany.com
+</span></code></pre></div>
+<p>Now:</p>
+<ul>
+<li><code>db</code> automatically expands to <code>db.mycompany.com</code></li>
+<li>Multiple search domains can be configured</li>
+</ul>
+<hr />
+<h2 id="dns-record-types-what-dns-stores">DNS record types (what DNS stores)<a class="headerlink" href="#dns-record-types-what-dns-stores" title="Permanent link">&para;</a></h2>
+<p>DNS does not store just one type of record.</p>
+<h3 id="a-record">A record<a class="headerlink" href="#a-record" title="Permanent link">&para;</a></h3>
+<p>Maps hostname to IPv4 address.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>db.mycompany.com → 192.168.1.1
+</span></code></pre></div>
+<hr />
+<h3 id="aaaa-record">AAAA record<a class="headerlink" href="#aaaa-record" title="Permanent link">&para;</a></h3>
+<p>Maps hostname to IPv6 address.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>db.mycompany.com → fe80::1
+</span></code></pre></div>
+<hr />
+<h3 id="cname-record">CNAME record<a class="headerlink" href="#cname-record" title="Permanent link">&para;</a></h3>
+<p>Creates an alias.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>web.mycompany.com → app.mycompany.com
+</span></code></pre></div>
+<p>Used when:</p>
+<ul>
+<li>One service has multiple names</li>
+<li>Backends change, names do not</li>
+</ul>
+<hr />
+<h2 id="testing-dns-resolution">Testing DNS resolution<a class="headerlink" href="#testing-dns-resolution" title="Permanent link">&para;</a></h2>
+<p>John tests DNS directly.</p>
+<h3 id="nslookup"><code>nslookup</code><a class="headerlink" href="#nslookup" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>nslookup<span class="w"> </span>db.mycompany.com
+</span></code></pre></div>
+<p>This queries DNS servers directly.
+It <strong>ignores <code>/etc/hosts</code></strong>.</p>
+<hr />
+<h3 id="dig"><code>dig</code><a class="headerlink" href="#dig" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>dig<span class="w"> </span>db.mycompany.com
+</span></code></pre></div>
+<p>This provides:</p>
+<ul>
+<li>Full DNS response</li>
+<li>Useful debugging details</li>
+</ul>
+<p>Preferred tool for troubleshooting.</p>
+<hr />
+<h2 id="what-john-understands-now">What John understands now<a class="headerlink" href="#what-john-understands-now" title="Permanent link">&para;</a></h2>
+<ul>
+<li>IPs are hard to use directly</li>
+<li>Name resolution converts names to IPs</li>
+<li><code>/etc/hosts</code> is local and limited</li>
+<li>DNS is centralized and scalable</li>
+<li>Resolution order matters</li>
+<li>DNS caching improves performance</li>
+<li>Search domains simplify internal usage</li>
+</ul>
+<p>DNS works because <strong>everyone agrees on where truth lives</strong>.</p>
+<hr />
+<h2 id="quick-cheat-sheet">Quick cheat sheet<a class="headerlink" href="#quick-cheat-sheet" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Local name mapping</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>/etc/hosts
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c1"># DNS server config</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>/etc/resolv.conf
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="c1"># Resolution order</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>/etc/nsswitch.conf
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="c1"># Test DNS</span>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>nslookup<span class="w"> </span>hostname
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>dig<span class="w"> </span>hostname
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../linux/user-access-in-linux-servers/" class="md-footer__link md-footer__link--prev" aria-label="Previous: User Management in Linux Servers">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                User Management in Linux Servers
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../networking-basics/" class="md-footer__link md-footer__link--next" aria-label="Next: Networking Basics">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Networking Basics
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 The authors
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.top","navigation.tracking","search.highlight"],"search":"../../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.00c35305.min.js"></script>
+      
+    
+  </body>
+</html>

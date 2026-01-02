@@ -1,0 +1,1505 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A new project generated from the default template project.">
+      
+      
+        <meta name="author" content="<your name here>">
+      
+      
+      
+        <link rel="prev" href="../linux-commands/">
+      
+      
+        <link rel="next" href="../linux-process-signal-ports/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.15">
+    
+    
+      
+        <title>Linux File system - Documentation</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.f1b6466b.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+  
+  <style>:root{}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linux-filesystem-layout" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux File system
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Get started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Devops
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Devops
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Introduction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/why-devops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why DevOps?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional use cases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux File system
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux File system
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-john-learns-why-everything-lives-where-it-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How John Learns Why Everything Lives Where It Does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#john-explores-the-root-of-the-filesystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        John explores the root of the filesystem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#home-where-humans-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /home: where humans live
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#root-why-john-was-denied-earlier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /root: why John was denied earlier
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bin-and-sbin-basic-commands-live-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /bin and /sbin: basic commands live here
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etc-configuration-lives-here-and-only-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc: configuration lives here (and only here)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#var-data-that-changes-while-the-system-runs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /var: data that changes while the system runs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tmp-temporary-means-temporary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /tmp: temporary means temporary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt-where-applications-belong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /opt: where applications belong
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usr-os-installed-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /usr: OS-installed software
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-layout-matters-in-real-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why this layout matters in real systems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#johns-final-mental-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        John’s final mental model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-takeaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Final takeaway
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-process-signal-ports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process, Signals and Ports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-access-in-linux-servers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Management in Linux Servers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/networking-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-john-learns-why-everything-lives-where-it-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How John Learns Why Everything Lives Where It Does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#john-explores-the-root-of-the-filesystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        John explores the root of the filesystem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#home-where-humans-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /home: where humans live
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#root-why-john-was-denied-earlier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /root: why John was denied earlier
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bin-and-sbin-basic-commands-live-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /bin and /sbin: basic commands live here
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etc-configuration-lives-here-and-only-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc: configuration lives here (and only here)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#var-data-that-changes-while-the-system-runs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /var: data that changes while the system runs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tmp-temporary-means-temporary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /tmp: temporary means temporary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt-where-applications-belong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /opt: where applications belong
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usr-os-installed-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /usr: OS-installed software
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-layout-matters-in-real-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why this layout matters in real systems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#johns-final-mental-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        John’s final mental model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-takeaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Final takeaway
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Get started
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../introduction/why-devops/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Devops
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../linux-commands/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Linux
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="linux-filesystem-layout">Linux Filesystem Layout<a class="headerlink" href="#linux-filesystem-layout" title="Permanent link">&para;</a></h1>
+<h2 id="how-john-learns-why-everything-lives-where-it-does">How John Learns Why Everything Lives Where It Does<a class="headerlink" href="#how-john-learns-why-everything-lives-where-it-does" title="Permanent link">&para;</a></h2>
+<p>John is now comfortable logging into Linux. He can run commands, edit files, and start services.
+But one question keeps coming up:</p>
+<blockquote>
+<p>“Where should things actually go?”</p>
+</blockquote>
+<p>Linux does not place files randomly. The filesystem layout exists to solve real operational problems.</p>
+<hr />
+<h2 id="john-explores-the-root-of-the-filesystem">John explores the root of the filesystem<a class="headerlink" href="#john-explores-the-root-of-the-filesystem" title="Permanent link">&para;</a></h2>
+<p>John starts at the top:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ls<span class="w"> </span>/
+</span></code></pre></div>
+<p>He sees directories like <code>/bin</code>, <code>/etc</code>, <code>/var</code>, <code>/opt</code>, <code>/home</code>, <code>/tmp</code>.</p>
+<p>At first, this looks arbitrary. It is not.</p>
+<p>Linux follows a standard layout so that:</p>
+<ul>
+<li>admins know where to look</li>
+<li>tools know where to read from</li>
+<li>automation behaves consistently across systems</li>
+</ul>
+<hr />
+<h2 id="home-where-humans-live"><code>/home</code>: where humans live<a class="headerlink" href="#home-where-humans-live" title="Permanent link">&para;</a></h2>
+<p>John checks:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ls<span class="w"> </span>/home
+</span></code></pre></div>
+<p>He sees his own directory:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/home/john
+</span></code></pre></div>
+<p>This directory exists because:</p>
+<ul>
+<li>each user needs a private workspace</li>
+<li>permissions isolate users from each other</li>
+<li>backups can target user data easily</li>
+</ul>
+<p>John creates a file:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>touch<span class="w"> </span>/home/john/test.txt
+</span></code></pre></div>
+<p>Linux allows this because John owns his home directory.</p>
+<hr />
+<h2 id="root-why-john-was-denied-earlier"><code>/root</code>: why John was denied earlier<a class="headerlink" href="#root-why-john-was-denied-earlier" title="Permanent link">&para;</a></h2>
+<p>Earlier, John tried:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ls<span class="w"> </span>/root
+</span></code></pre></div>
+<p>and got “permission denied”.</p>
+<p>Now it makes sense.</p>
+<p><code>/root</code> is:</p>
+<ul>
+<li>the home directory of the <code>root</code> user</li>
+<li>intentionally separate from <code>/home</code></li>
+<li>protected from regular users</li>
+</ul>
+<p>Root is a user, not magic. It just has a different home.</p>
+<hr />
+<h2 id="bin-and-sbin-basic-commands-live-here"><code>/bin</code> and <code>/sbin</code>: basic commands live here<a class="headerlink" href="#bin-and-sbin-basic-commands-live-here" title="Permanent link">&para;</a></h2>
+<p>John wonders where commands like <code>ls</code> actually come from.</p>
+<p>He checks:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>which<span class="w"> </span>ls
+</span></code></pre></div>
+<p>Output:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/bin/ls
+</span></code></pre></div>
+<p>This tells him:</p>
+<ul>
+<li><code>/bin</code> contains essential user commands</li>
+<li>these commands must be available even in recovery mode</li>
+</ul>
+<p>Similarly:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>which<span class="w"> </span>ip
+</span></code></pre></div>
+<p>might point to:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/sbin/ip
+</span></code></pre></div>
+<p><code>/sbin</code> contains system-level commands meant for administrators.</p>
+<hr />
+<h2 id="etc-configuration-lives-here-and-only-here"><code>/etc</code>: configuration lives here (and only here)<a class="headerlink" href="#etc-configuration-lives-here-and-only-here" title="Permanent link">&para;</a></h2>
+<p>John edits a service file earlier in <code>/etc/systemd/system</code>.
+Now he understands why.</p>
+<p><code>/etc</code> exists for <strong>configuration only</strong>.</p>
+<p>John lists it:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ls<span class="w"> </span>/etc
+</span></code></pre></div>
+<p>He sees:</p>
+<ul>
+<li>service configs</li>
+<li>user configs</li>
+<li>network configs</li>
+</ul>
+<p>Important rule:</p>
+<blockquote>
+<p>Executables do not live in <code>/etc</code>.
+Data does not live in <code>/etc</code>.
+Only configuration.</p>
+</blockquote>
+<p>This separation allows:</p>
+<ul>
+<li>safe upgrades</li>
+<li>easy backups</li>
+<li>predictable automation</li>
+</ul>
+<hr />
+<h2 id="var-data-that-changes-while-the-system-runs"><code>/var</code>: data that changes while the system runs<a class="headerlink" href="#var-data-that-changes-while-the-system-runs" title="Permanent link">&para;</a></h2>
+<p>John notices logs are not in <code>/etc</code>.</p>
+<p>He checks:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ls<span class="w"> </span>/var
+</span></code></pre></div>
+<p>He sees directories like:</p>
+<ul>
+<li><code>/var/log</code></li>
+<li><code>/var/lib</code></li>
+<li><code>/var/tmp</code></li>
+</ul>
+<p>He opens logs:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ls<span class="w"> </span>/var/log
+</span></code></pre></div>
+<p>This explains why:</p>
+<ul>
+<li>logs grow over time</li>
+<li>disk-full issues often come from <code>/var</code></li>
+<li><code>/var</code> is monitored closely in production</li>
+</ul>
+<p>Applications write changing data here, not in <code>/etc</code>.</p>
+<hr />
+<h2 id="tmp-temporary-means-temporary"><code>/tmp</code>: temporary means temporary<a class="headerlink" href="#tmp-temporary-means-temporary" title="Permanent link">&para;</a></h2>
+<p>John creates a file:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>touch<span class="w"> </span>/tmp/test.tmp
+</span></code></pre></div>
+<p>It works.
+But after a reboot, the file is gone.</p>
+<p>This teaches an important rule:</p>
+<blockquote>
+<p><code>/tmp</code> is for short-lived files only.</p>
+</blockquote>
+<p>System cleanups and reboots can wipe it at any time.</p>
+<hr />
+<h2 id="opt-where-applications-belong"><code>/opt</code>: where applications belong<a class="headerlink" href="#opt-where-applications-belong" title="Permanent link">&para;</a></h2>
+<p>John earlier placed his app in <code>/opt/my_app</code>.</p>
+<p>Now he understands why.</p>
+<p><code>/opt</code> exists for:</p>
+<ul>
+<li>optional software</li>
+<li>third-party applications</li>
+<li>custom deployments</li>
+</ul>
+<p>This keeps applications separate from:</p>
+<ul>
+<li>OS binaries (<code>/bin</code>)</li>
+<li>configs (<code>/etc</code>)</li>
+<li>logs (<code>/var/log</code>)</li>
+</ul>
+<p>In production systems, this separation prevents accidental overwrites during OS upgrades.</p>
+<hr />
+<h2 id="usr-os-installed-software"><code>/usr</code>: OS-installed software<a class="headerlink" href="#usr-os-installed-software" title="Permanent link">&para;</a></h2>
+<p>John installs a package:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>yum<span class="w"> </span>install<span class="w"> </span>python3
+</span></code></pre></div>
+<p>He checks:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>which<span class="w"> </span>python3
+</span></code></pre></div>
+<p>Output:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>/usr/bin/python3
+</span></code></pre></div>
+<p>This tells him:</p>
+<ul>
+<li><code>/usr</code> holds OS-managed software</li>
+<li>package managers control this space</li>
+<li>admins should not manually edit files here</li>
+</ul>
+<hr />
+<h2 id="why-this-layout-matters-in-real-systems">Why this layout matters in real systems<a class="headerlink" href="#why-this-layout-matters-in-real-systems" title="Permanent link">&para;</a></h2>
+<p>Later, John joins a production incident call.</p>
+<p>The service is down.</p>
+<p>The team asks:</p>
+<ul>
+<li>“Check logs” → <code>/var/log</code></li>
+<li>“Check config” → <code>/etc</code></li>
+<li>“Check app binaries” → <code>/opt</code></li>
+<li>“Check user scripts” → <code>/home</code></li>
+</ul>
+<p>No guessing. Everyone knows where to look.</p>
+<p>That is the real value of the filesystem layout.</p>
+<hr />
+<h2 id="johns-final-mental-model">John’s final mental model<a class="headerlink" href="#johns-final-mental-model" title="Permanent link">&para;</a></h2>
+<p>John now thinks about Linux like this:</p>
+<ul>
+<li><code>/home</code> → humans</li>
+<li><code>/root</code> → superuser</li>
+<li><code>/bin</code>, <code>/sbin</code> → core commands</li>
+<li><code>/etc</code> → configuration</li>
+<li><code>/var</code> → changing data</li>
+<li><code>/opt</code> → applications</li>
+<li><code>/tmp</code> → temporary files</li>
+<li><code>/usr</code> → OS-managed software</li>
+</ul>
+<p>Linux did not choose this structure randomly.
+It chose it so <strong>humans and automation could work together without confusion</strong>.</p>
+<hr />
+<h2 id="final-takeaway">Final takeaway<a class="headerlink" href="#final-takeaway" title="Permanent link">&para;</a></h2>
+<p>Understanding the Linux filesystem is not about memorizing directories.
+It is about knowing <strong>where responsibility lives</strong>.</p>
+<p>Once John understands this, production systems stop feeling chaotic and start feeling organized.</p>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">devops</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../linux-commands/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Functional use cases">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Functional use cases
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../linux-process-signal-ports/" class="md-footer__link md-footer__link--next" aria-label="Next: Process, Signals and Ports">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Process, Signals and Ports
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 The authors
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.top","navigation.tracking","search.highlight"],"search":"../../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.00c35305.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1844 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A new project generated from the default template project.">
+      
+      
+        <meta name="author" content="<your name here>">
+      
+      
+      
+        <link rel="prev" href="../../introduction/why-devops/">
+      
+      
+        <link rel="next" href="../linux-filesystem/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.15">
+    
+    
+      
+        <title>Functional use cases - Documentation</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.f1b6466b.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+  
+  <style>:root{}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction-to-linux-how-to-think" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Functional use cases
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Get started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Devops
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Devops
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Introduction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/why-devops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why DevOps?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional use cases
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional use cases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-linux-is-different-from-windows-the-core-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Linux is different from Windows (the core idea)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-linux-became-the-base-for-devops-and-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Linux became the base for DevOps and cloud
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why Linux became the base for DevOps and cloud">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#containers-why-linux-is-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Containers (why Linux is required)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-management-ansible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration management (Ansible)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-linux-actually-means-distributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What “Linux” actually means (distributions)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-you-interact-with-linux-cli-first-thinking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How you interact with Linux (CLI-first thinking)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shells-how-linux-interprets-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shells: how Linux interprets commands
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-the-operating-system-thinking-not-guessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding the operating system (thinking, not guessing)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding the operating system (thinking, not guessing)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-distribution-identity-most-common" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 1: Distribution identity (most common)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-compatibility-check-practical-admin-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 2: Compatibility check (practical admin view)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-3-kernel-vs-os-distinction-advanced-thinking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 3: Kernel vs OS distinction (advanced thinking)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-linux-commands-mental-model-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Linux commands (mental model first)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Linux commands (mental model first)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files-and-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files and directories
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#editing-files-with-vi-why-it-still-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editing files with vi (why it still exists)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#users-and-permissions-how-linux-thinks-about-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Users and permissions (how Linux thinks about access)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloading-files-automation-friendly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Downloading files (automation-friendly)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-software-how-linux-decides-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing software (how Linux decides dependencies)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing software (how Linux decides dependencies)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rpm-low-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rpm (low-level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yum-high-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        yum (high-level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#services-and-systemd-process-thinking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Services and systemd (process thinking)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-simple-service-reasoning-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a simple service (reasoning example)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-filesystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux File system
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-process-signal-ports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process, Signals and Ports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-access-in-linux-servers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Management in Linux Servers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/networking-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-linux-is-different-from-windows-the-core-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Linux is different from Windows (the core idea)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-linux-became-the-base-for-devops-and-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Linux became the base for DevOps and cloud
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why Linux became the base for DevOps and cloud">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#containers-why-linux-is-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Containers (why Linux is required)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-management-ansible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration management (Ansible)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-linux-actually-means-distributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What “Linux” actually means (distributions)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-you-interact-with-linux-cli-first-thinking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How you interact with Linux (CLI-first thinking)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shells-how-linux-interprets-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shells: how Linux interprets commands
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-the-operating-system-thinking-not-guessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding the operating system (thinking, not guessing)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding the operating system (thinking, not guessing)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-distribution-identity-most-common" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 1: Distribution identity (most common)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-compatibility-check-practical-admin-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 2: Compatibility check (practical admin view)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-3-kernel-vs-os-distinction-advanced-thinking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 3: Kernel vs OS distinction (advanced thinking)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-linux-commands-mental-model-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Linux commands (mental model first)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Linux commands (mental model first)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files-and-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files and directories
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#editing-files-with-vi-why-it-still-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editing files with vi (why it still exists)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#users-and-permissions-how-linux-thinks-about-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Users and permissions (how Linux thinks about access)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloading-files-automation-friendly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Downloading files (automation-friendly)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-software-how-linux-decides-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing software (how Linux decides dependencies)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing software (how Linux decides dependencies)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rpm-low-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rpm (low-level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yum-high-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        yum (high-level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#services-and-systemd-process-thinking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Services and systemd (process thinking)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-simple-service-reasoning-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a simple service (reasoning example)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Get started
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../introduction/why-devops/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Devops
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Linux
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="introduction-to-linux-how-to-think">Introduction to Linux (How to Think)<a class="headerlink" href="#introduction-to-linux-how-to-think" title="Permanent link">&para;</a></h1>
+<p>This document introduces Linux by explaining <strong>how to reason about a Linux system</strong>, not just which commands exist.
+The goal is to help understand <em>why</em> Linux behaves the way it does, so later topics (DevOps, containers, automation) feel natural.</p>
+<h2 id="how-linux-is-different-from-windows-the-core-idea">How Linux is different from Windows (the core idea)<a class="headerlink" href="#how-linux-is-different-from-windows-the-core-idea" title="Permanent link">&para;</a></h2>
+<p>Linux and Windows solve different problems.</p>
+<p>Windows was designed for <strong>individual desktop users</strong>:</p>
+<ul>
+<li>Strong focus on GUI</li>
+<li>System internals are intentionally hidden</li>
+<li>Manual interaction is the default</li>
+</ul>
+<p>Linux was designed for <strong>multi-user systems and servers</strong>:</p>
+<ul>
+<li>System internals are visible</li>
+<li>Everything is controlled using files and processes</li>
+<li>Automation is expected, not optional</li>
+</ul>
+<p>A useful mental model:</p>
+<ul>
+<li>Windows is like <strong>ready-made furniture</strong>: polished and convenient, but hard to modify internally.</li>
+<li>Linux is like <strong>Lego bricks in a workshop</strong>: smaller pieces, fully visible, and easy to assemble differently.</li>
+</ul>
+<p>This single difference explains why Linux dominates servers and DevOps.</p>
+<h2 id="why-linux-became-the-base-for-devops-and-cloud">Why Linux became the base for DevOps and cloud<a class="headerlink" href="#why-linux-became-the-base-for-devops-and-cloud" title="Permanent link">&para;</a></h2>
+<p>Linux exposes low-level system behavior in a way automation tools can directly control.</p>
+<h3 id="containers-why-linux-is-required">Containers (why Linux is required)<a class="headerlink" href="#containers-why-linux-is-required" title="Permanent link">&para;</a></h3>
+<p>Containers are not a generic technology; they depend on Linux kernel features:</p>
+<ul>
+<li><strong>Namespaces</strong> isolate processes, networks, and filesystems.</li>
+<li><strong>cgroups</strong> control CPU and memory usage.</li>
+<li><strong>chroot</strong> limits filesystem visibility.</li>
+</ul>
+<p>Because of this:</p>
+<ul>
+<li>A container is a restricted Linux process.</li>
+<li>It is not a virtual machine.</li>
+<li>On Windows or macOS, Docker runs a small Linux VM in the background.</li>
+<li>Containers still execute on a Linux kernel.</li>
+</ul>
+<p>This is a technical dependency, not a preference.</p>
+<h3 id="configuration-management-ansible">Configuration management (Ansible)<a class="headerlink" href="#configuration-management-ansible" title="Permanent link">&para;</a></h3>
+<p>Ansible assumes Linux-style systems:</p>
+<ul>
+<li>SSH-based remote execution</li>
+<li>Text configuration files</li>
+<li>Linux users, permissions, and package managers</li>
+</ul>
+<p>Windows support exists, but:</p>
+<ul>
+<li>Requires WinRM</li>
+<li>Uses separate modules</li>
+<li>Adds complexity</li>
+</ul>
+<p>Linux aligns naturally with automation, so it remains the default.</p>
+<h2 id="what-linux-actually-means-distributions">What “Linux” actually means (distributions)<a class="headerlink" href="#what-linux-actually-means-distributions" title="Permanent link">&para;</a></h2>
+<p>Linux itself is only the <strong>kernel</strong>.
+A usable system is created by combining the kernel with tools, libraries, and defaults. This is called a <strong>distribution</strong>.</p>
+<p>Example:</p>
+<ul>
+<li>RHEL = enterprise Linux with paid support</li>
+<li>CentOS = community rebuild of RHEL (same structure, no support)</li>
+</ul>
+<p>Different distributions exist, but the core concepts do not change.</p>
+<h2 id="how-you-interact-with-linux-cli-first-thinking">How you interact with Linux (CLI-first thinking)<a class="headerlink" href="#how-you-interact-with-linux-cli-first-thinking" title="Permanent link">&para;</a></h2>
+<p>Linux provides both GUI and CLI, but servers are <strong>CLI-only</strong>.</p>
+<p>This matters because:</p>
+<ul>
+<li>Scripts run CLI commands</li>
+<li>Automation uses CLI commands</li>
+<li>Troubleshooting happens via CLI</li>
+</ul>
+<p>Learning Linux means learning to <strong>reason through commands</strong>.</p>
+<hr />
+<h2 id="shells-how-linux-interprets-commands">Shells: how Linux interprets commands<a class="headerlink" href="#shells-how-linux-interprets-commands" title="Permanent link">&para;</a></h2>
+<p>A shell is the program that reads your command and decides <strong>what to execute</strong>.</p>
+<p>Common shells:</p>
+<ul>
+<li><code>sh</code> – original Bourne shell</li>
+<li><code>csh</code> / <code>tcsh</code> – C-style syntax</li>
+<li><code>zsh</code> – modern interactive shell</li>
+<li><code>bash</code> – default on most enterprise systems</li>
+</ul>
+<p><code>bash</code> is important because it supports:</p>
+<ul>
+<li>Variables</li>
+<li>Arithmetic</li>
+<li>Conditions</li>
+<li>Loops</li>
+<li>Scripts</li>
+</ul>
+<p>Check which shell you are using:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$SHELL</span>
+</span></code></pre></div>
+<p>Interpretation:</p>
+<ul>
+<li><code>/bin/bash</code> means Bash is processing your commands</li>
+<li>Scripts will behave according to Bash rules</li>
+</ul>
+<hr />
+<h2 id="understanding-the-operating-system-thinking-not-guessing">Understanding the operating system (thinking, not guessing)<a class="headerlink" href="#understanding-the-operating-system-thinking-not-guessing" title="Permanent link">&para;</a></h2>
+<p>Before running commands or installing software, you must know <strong>what OS you are on</strong>.
+Different OS versions mean different package managers, paths, and defaults.</p>
+<h3 id="method-1-distribution-identity-most-common">Method 1: Distribution identity (most common)<a class="headerlink" href="#method-1-distribution-identity-most-common" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>cat<span class="w"> </span>/etc/os-release
+</span></code></pre></div>
+<p>This tells you:</p>
+<ul>
+<li>Distribution name</li>
+<li>Version</li>
+<li>Vendor</li>
+</ul>
+<p>Use this when deciding:</p>
+<ul>
+<li>Which package manager to use</li>
+<li>Which documentation applies</li>
+</ul>
+<hr />
+<h3 id="method-2-compatibility-check-practical-admin-view">Method 2: Compatibility check (practical admin view)<a class="headerlink" href="#method-2-compatibility-check-practical-admin-view" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ls<span class="w"> </span>/etc/*release*
+</span></code></pre></div>
+<p>Why this exists:</p>
+<ul>
+<li>Many tools and scripts only check for file presence</li>
+<li>Legacy systems may not have <code>os-release</code></li>
+</ul>
+<p>This helps you reason about <strong>backward compatibility</strong>.</p>
+<hr />
+<h3 id="method-3-kernel-vs-os-distinction-advanced-thinking">Method 3: Kernel vs OS distinction (advanced thinking)<a class="headerlink" href="#method-3-kernel-vs-os-distinction-advanced-thinking" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uname<span class="w"> </span>-a
+</span></code></pre></div>
+<p>This tells you:</p>
+<ul>
+<li>Kernel version</li>
+<li>Architecture</li>
+</ul>
+<p>Important insight:</p>
+<ul>
+<li>Two systems can run the same kernel</li>
+<li>But behave differently due to distribution-level tools</li>
+</ul>
+<p>Kernel ≠ distribution.</p>
+<hr />
+<h2 id="core-linux-commands-mental-model-first">Core Linux commands (mental model first)<a class="headerlink" href="#core-linux-commands-mental-model-first" title="Permanent link">&para;</a></h2>
+<p>Linux commands are intentionally small and focused.</p>
+<p>Examples:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">echo</span><span class="w"> </span>Hi<span class="w">        </span><span class="c1"># print output</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>ls<span class="w">             </span><span class="c1"># list files</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">cd</span><span class="w"> </span>/path<span class="w">       </span><span class="c1"># move in filesystem</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nb">pwd</span><span class="w">            </span><span class="c1"># show current location</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>mkdir<span class="w"> </span><span class="nb">test</span><span class="w">     </span><span class="c1"># create directory</span>
+</span></code></pre></div>
+<p>Key idea:</p>
+<ul>
+<li>Commands do one thing</li>
+<li>You combine them to do complex tasks</li>
+</ul>
+<hr />
+<h3 id="files-and-directories">Files and directories<a class="headerlink" href="#files-and-directories" title="Permanent link">&para;</a></h3>
+<p>Create nested paths:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/asia/india/bangalore
+</span></code></pre></div>
+<p>Remove recursively:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>rm<span class="w"> </span>-r<span class="w"> </span>old_dir
+</span></code></pre></div>
+<p>Copy directories:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>cp<span class="w"> </span>-r<span class="w"> </span>src<span class="w"> </span>dest
+</span></code></pre></div>
+<p>Create files:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>touch<span class="w"> </span>file.txt
+</span></code></pre></div>
+<p>Write content:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>file.txt
+</span></code></pre></div>
+<p>Read content:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>cat<span class="w"> </span>file.txt
+</span></code></pre></div>
+<p>Linux treats <strong>everything as files</strong>, including configuration and devices.</p>
+<hr />
+<h2 id="editing-files-with-vi-why-it-still-exists">Editing files with vi (why it still exists)<a class="headerlink" href="#editing-files-with-vi-why-it-still-exists" title="Permanent link">&para;</a></h2>
+<p><code>vi</code> is always available, even on minimal servers.</p>
+<p>Understanding vi is about <strong>survivability</strong>, not preference.</p>
+<p>Basic flow:</p>
+<ul>
+<li>Open file → command mode</li>
+<li>Press <code>i</code> → insert mode</li>
+<li>Press <code>Esc</code> → command mode</li>
+</ul>
+<p>Common actions:</p>
+<ul>
+<li>Save: <code>:w</code></li>
+<li>Quit: <code>:q</code></li>
+<li>Save and quit: <code>:wq</code></li>
+<li>Search: <code>/word</code></li>
+</ul>
+<p>You do not need speed. You need reliability.</p>
+<hr />
+<h2 id="users-and-permissions-how-linux-thinks-about-access">Users and permissions (how Linux thinks about access)<a class="headerlink" href="#users-and-permissions-how-linux-thinks-about-access" title="Permanent link">&para;</a></h2>
+<p>Linux separates <strong>identity</strong> from <strong>privilege</strong>.</p>
+<p>Check identity:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>whoami
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>id
+</span></code></pre></div>
+<p>Switch users:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>su
+</span></code></pre></div>
+<p>Remote login:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ssh<span class="w"> </span>user@host
+</span></code></pre></div>
+<p><code>root</code> is the superuser.
+Regular users are restricted by default.</p>
+<p>Example:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ls<span class="w"> </span>/root
+</span></code></pre></div>
+<p>Result:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Permission denied
+</span></code></pre></div>
+<p>With controlled privilege:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>sudo<span class="w"> </span>ls<span class="w"> </span>/root
+</span></code></pre></div>
+<p>Sudo:</p>
+<ul>
+<li>Temporarily elevates privilege</li>
+<li>Requires user authentication</li>
+<li>Logs every action</li>
+</ul>
+<hr />
+<h2 id="downloading-files-automation-friendly">Downloading files (automation-friendly)<a class="headerlink" href="#downloading-files-automation-friendly" title="Permanent link">&para;</a></h2>
+<p>Using curl:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>curl<span class="w"> </span>&lt;url&gt;<span class="w"> </span>-O
+</span></code></pre></div>
+<p>Using wget:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>wget<span class="w"> </span>&lt;url&gt;<span class="w"> </span>-O<span class="w"> </span>file_name
+</span></code></pre></div>
+<p>Both are commonly used in scripts and pipelines.</p>
+<hr />
+<h2 id="installing-software-how-linux-decides-dependencies">Installing software (how Linux decides dependencies)<a class="headerlink" href="#installing-software-how-linux-decides-dependencies" title="Permanent link">&para;</a></h2>
+<h3 id="rpm-low-level">rpm (low-level)<a class="headerlink" href="#rpm-low-level" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>rpm<span class="w"> </span>-i<span class="w"> </span>ansible.rpm
+</span></code></pre></div>
+<ul>
+<li>Installs one package</li>
+<li>Does not resolve dependencies</li>
+</ul>
+<p>Use when:</p>
+<ul>
+<li>Offline installs</li>
+<li>Controlled environments</li>
+</ul>
+<hr />
+<h3 id="yum-high-level">yum (high-level)<a class="headerlink" href="#yum-high-level" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>yum<span class="w"> </span>install<span class="w"> </span>ansible
+</span></code></pre></div>
+<ul>
+<li>Resolves dependencies</li>
+<li>Uses repositories</li>
+</ul>
+<p>Repositories live in:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>/etc/yum.repos.d/
+</span></code></pre></div>
+<p>Yum:</p>
+<ul>
+<li>Compares available versions</li>
+<li>Selects compatible packages</li>
+<li>Avoids conflicts</li>
+</ul>
+<p>Other systems use:</p>
+<ul>
+<li><code>apt</code></li>
+<li><code>dnf</code></li>
+<li><code>zypper</code></li>
+</ul>
+<p>The idea is the same everywhere.</p>
+<hr />
+<h2 id="services-and-systemd-process-thinking">Services and systemd (process thinking)<a class="headerlink" href="#services-and-systemd-process-thinking" title="Permanent link">&para;</a></h2>
+<p>Modern Linux uses <strong>systemd</strong> to manage services.</p>
+<p>Check service state:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>systemctl<span class="w"> </span>status<span class="w"> </span>my_app
+</span></code></pre></div>
+<p>Start service:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>systemctl<span class="w"> </span>start<span class="w"> </span>my_app
+</span></code></pre></div>
+<p>Older <code>service</code> command still exists but wraps <code>systemctl</code>.</p>
+<hr />
+<h2 id="creating-a-simple-service-reasoning-example">Creating a simple service (reasoning example)<a class="headerlink" href="#creating-a-simple-service-reasoning-example" title="Permanent link">&para;</a></h2>
+<p>You have:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>/opt/my_app/my_app.py
+</span></code></pre></div>
+<p>Create:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>/etc/systemd/system/my_app.service
+</span></code></pre></div>
+<div class="language-ini highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="k">[Unit]</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="na">Description</span><span class="o">=</span><span class="s">My Sample App</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="k">[Service]</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/python3 /opt/my_app/my_app.py</span>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="na">Restart</span><span class="o">=</span><span class="s">always</span>
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="k">[Install]</span>
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</span></code></pre></div>
+<p>Reload systemd:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>systemctl<span class="w"> </span>daemon-reload
+</span></code></pre></div>
+<p>Enable and start:</p>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>my_app
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>systemctl<span class="w"> </span>start<span class="w"> </span>my_app
+</span></code></pre></div>
+Thinking model:</p>
+<ul>
+<li><code>[Unit]</code> explains <em>what</em></li>
+<li><code>[Service]</code> explains <em>how</em></li>
+<li><code>[Install]</code> explains <em>when</em></li>
+</ul>
+<hr />
+<p>Linux is powerful because it exposes its internals in a consistent, scriptable way.
+Once you understand how Linux thinks about identity, files, processes, and services, DevOps and cloud concepts stop feeling magical and start feeling logical.</p>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">devops</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../introduction/why-devops/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Why DevOps?">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Why DevOps?
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../linux-filesystem/" class="md-footer__link md-footer__link--next" aria-label="Next: Linux File system">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Linux File system
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 The authors
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.top","navigation.tracking","search.highlight"],"search":"../../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.00c35305.min.js"></script>
+      
+    
+  </body>
+</html>
