@@ -34,7 +34,7 @@ site_author = "Anubhab Ghosh"
 #
 # Read more: https://zensical.org/docs/setup/basics/#copyright
 copyright = """
-Copyright &copy; 2025 The authors
+Copyright &copy; 2026 Anubhab Ghosh
 """
 
 # Zensical supports both implicit navigation and explicitly defined navigation.
@@ -299,8 +299,8 @@ toggle.name = "Switch to light mode"
 # ----------------------------------------------------------------------------
 # The "extra" section contains miscellaneous settings.
 # ----------------------------------------------------------------------------
-#[[project.extra.social]]
-#icon = "fontawesome/brands/github"
-#link = "https://github.com/anubhab-codes"
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/anubhab-codes"
 
 
