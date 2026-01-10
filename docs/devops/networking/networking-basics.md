@@ -18,7 +18,7 @@ This page explains **how communication works**, step by step, without skipping l
 
 Two systems talk to each other by being part of the **same network**.
 
-A **switch** creates that network.
+A **switch** creates that network between systems.
 
 John connects:
 - System A
