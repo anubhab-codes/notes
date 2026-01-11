@@ -4,18 +4,27 @@ toc:
   max_depth: 2
 ---
 
-# Working Locally with Git
+Perfect. You’re asking for the **right thing**.
+Students need **“run → see → understand”**, not just commands.
 
-This article focuses only on working with Git on your local machine.  
-No remote repositories. No GitHub.
+Below is **Article 2 rewritten** as a **hands-on lab guide**.
+Every command is followed by **what students will see** and **what it means**.
 
-The goal is to understand how Git behaves locally and how history is created.
+Same tone. More guidance. Still clean Markdown.
 
 ---
 
-## Initializing a repository
+````md
+# Working Locally with Git
 
-Create a new directory and initialize Git.
+This article is a hands-on guide to using Git on your local machine.
+All commands work without internet or GitHub.
+
+---
+
+## Step 1: Create a new repository
+
+Create a directory and initialize Git.
 
 ```bash
 mkdir git-local-demo
@@ -23,56 +32,65 @@ cd git-local-demo
 git init
 ````
 
-`git init` creates a `.git` directory.
-This directory contains the entire Git repository.
+What you see:
+
+* Git prints: `Initialized empty Git repository`
+* A hidden `.git` directory is created
+
+What this means:
+
+* This folder is now a Git repository
+* All history will be stored inside `.git`
 
 ---
 
-## Checking repository state
+## Step 2: Check repository status
 
 ```bash
 git status
 ```
 
-Shows:
+What you see:
 
-* current branch
-* staged changes
-* unstaged changes
-* untracked files
+* Current branch name (usually `main`)
+* Message saying there are no commits yet
+* Working tree is clean
 
-Run this command often.
-It tells you exactly where you are.
+What this means:
+
+* Git is active
+* Nothing has been added or changed yet
 
 ---
 
-## Creating and tracking a file
-
-Create a file.
+## Step 3: Create a file
 
 ```bash
 echo "first line" > file.txt
 ```
 
-Check status.
+Run status again.
 
 ```bash
 git status
 ```
 
-The file appears as **untracked**.
-Git sees the file but is not tracking it yet.
+What you see:
+
+* `file.txt` listed as **untracked**
+
+What this means:
+
+* Git sees the file
+* Git is not tracking it yet
 
 ---
 
-## Staging changes
+## Step 4: Stage the file
 
 ```bash
 git add file.txt
 ```
-
-Moves the file to the staging area.
-Staging means “include this in the next commit”.
 
 Check status again.
 
@@ -80,47 +98,63 @@ Check status again.
 git status
 ```
 
-The file is now staged.
+What you see:
+
+* `file.txt` under **Changes to be committed**
+
+What this means:
+
+* The file is in the staging area
+* It will be included in the next commit
 
 ---
 
-## Committing changes
+## Step 5: Commit the file
 
 ```bash
-git commit -m "add initial file"
+git commit -m "add first file"
 ```
 
-Creates a commit.
-A commit records the current state of staged files.
+What you see:
 
-Commits are permanent history entries.
+* A commit hash
+* Commit message
+* Number of files changed
+
+What this means:
+
+* Git recorded a snapshot of the file
+* This snapshot is permanent history
 
 ---
 
-## Viewing commit history
+## Step 6: View commit history
 
 ```bash
 git log
 ```
 
-Shows:
+What you see:
 
-* commit hash
-* author
-* date
-* commit message
+* Commit hash
+* Author name
+* Date
+* Commit message
 
-For a compact view:
+For a shorter view:
 
 ```bash
 git log --oneline
 ```
 
+What this means:
+
+* Git is showing the commit history
+* Newest commit appears first
+
 ---
 
-## Modifying a tracked file
-
-Edit the file.
+## Step 7: Modify the file
 
 ```bash
 echo "second line" >> file.txt
@@ -132,85 +166,110 @@ Check status.
 git status
 ```
 
-Git shows the file as **modified**.
+What you see:
+
+* `file.txt` marked as **modified**
+
+What this means:
+
+* Git detects changes since the last commit
+* Changes are not staged yet
 
 ---
 
-## Viewing changes before committing
+## Step 8: View file changes
 
 ```bash
 git diff
 ```
 
-Shows differences between:
+What you see:
 
-* working directory
-* last committed version
+* Lines added with `+`
+* Lines removed with `-`
 
-This command helps you review changes before staging.
+What this means:
+
+* This is the difference between working directory and last commit
+* Nothing here is staged yet
 
 ---
 
-## Staging and committing modifications
+## Step 9: Stage and commit the change
 
 ```bash
 git add file.txt
 git commit -m "add second line"
 ```
 
-The new version of the file is now part of history.
+What you see:
+
+* Another commit created
+* New commit hash
+
+What this means:
+
+* File history now has two snapshots
 
 ---
 
-## Understanding the three areas
+## Step 10: Understand Git areas
 
 Git works with three areas:
 
 * Working directory: files you edit
-* Staging area: files prepared for commit
+* Staging area: files ready to commit
 * Repository: committed history
 
-Changes always move in this order:
-working → staging → commit
+Files always move in this order.
 
 ---
 
-## Creating a branch
+## Step 11: Create a new branch
 
 ```bash
 git branch feature
 ```
 
-Creates a new branch called `feature`.
+What you see:
 
-Branches are pointers to commits.
-They are lightweight and cheap.
+* No output (this is normal)
+
+Check branches.
+
+```bash
+git branch
+```
+
+What you see:
+
+* `main`
+* `feature`
+
+What this means:
+
+* A new branch pointer was created
 
 ---
 
-## Switching branches
+## Step 12: Switch to the branch
 
 ```bash
 git checkout feature
 ```
 
-Moves you to the `feature` branch.
+What you see:
 
-Your files now reflect the state of this branch.
+* Message saying you switched branches
 
----
+What this means:
 
-## Creating and switching in one step
-
-```bash
-git checkout -b experiment
-```
-
-Creates a new branch and switches to it.
+* HEAD now points to `feature`
+* Any new commits will belong to this branch
 
 ---
 
-## Making commits on a branch
+## Step 13: Make a commit on the branch
 
 ```bash
 echo "branch work" > branch.txt
@@ -218,11 +277,17 @@ git add branch.txt
 git commit -m "add branch file"
 ```
 
-This commit exists only on the current branch.
+What you see:
+
+* Commit created on `feature`
+
+What this means:
+
+* This commit exists only on the feature branch
 
 ---
 
-## Merging a branch
+## Step 14: Merge the branch
 
 Switch back to main.
 
@@ -230,88 +295,68 @@ Switch back to main.
 git checkout main
 ```
 
-Merge the feature branch.
+Merge feature.
 
 ```bash
 git merge feature
 ```
 
-This combines feature branch changes into main.
+What you see:
 
-If main has not moved, Git performs a fast-forward merge.
+* Either a fast-forward message
+* Or a merge commit message
+
+What this means:
+
+* Changes from feature are now part of main
 
 ---
 
-## Rebasing a branch
+## Step 15: Rebase the branch
 
-Rebase rewrites history to make it linear.
-
-Switch to the branch.
+Switch back to feature.
 
 ```bash
 git checkout feature
-```
-
-Rebase onto main.
-
-```bash
 git rebase main
 ```
 
-This moves feature commits on top of main.
+What you see:
 
-Rebase creates new commit hashes.
+* Rebase completes without error
+* Or Git pauses if there is a conflict
 
----
+What this means:
 
-## Key rule for rebase
-
-Rebase only local branches.
-Do not rebase branches that others are using.
-
----
-
-## Comparing merge and rebase locally
-
-* Merge preserves branch history
-* Rebase creates a clean, linear history
-
-Both are valid.
-The choice depends on team workflow.
+* Feature commits are replayed on top of main
+* Commit hashes change
 
 ---
 
-## Viewing branch history graph
+## Step 16: View history as a graph
 
 ```bash
 git log --oneline --graph --all
 ```
 
-Shows:
+What you see:
 
-* branches
-* merges
-* commit order
+* Commit lines
+* Branch pointers
+* Merge commits if any
 
-This is the best command to understand Git history.
+What this means:
 
----
-
-## Summary of local workflow
-
-Typical local workflow:
-
-1. edit files
-2. check status
-3. review diff
-4. stage changes
-5. commit
-
-All of this works without internet.
+* This shows the true shape of history
 
 ---
 
-This article covers only local Git behavior.
-Remote repositories and GitHub come next.
+## Key rule to remember
+
+Rebase only local branches.
+Never rebase a branch that others are using.
+
+---
+All of this works without GitHub.
 
 ```
