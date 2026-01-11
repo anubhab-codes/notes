@@ -4,17 +4,6 @@ toc:
   max_depth: 2
 ---
 
-Perfect. You’re asking for the **right thing**.
-Students need **“run → see → understand”**, not just commands.
-
-Below is **Article 2 rewritten** as a **hands-on lab guide**.
-Every command is followed by **what students will see** and **what it means**.
-
-Same tone. More guidance. Still clean Markdown.
-
----
-
-````md
 # Working Locally with Git
 
 This article is a hands-on guide to using Git on your local machine.
