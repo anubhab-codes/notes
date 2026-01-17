@@ -3,6 +3,7 @@ title: "Deep Learning–Enabled Multimodal Continuous Authentication"
 type: publication
 status: "Technical Paper"
 year: 2025
+summary: "A deep learning–based multimodal continuous authentication system designed for enterprise identity platforms."
 authors:
   - "Anubhab Ghosh"
 keywords:
