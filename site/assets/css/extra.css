@@ -20,3 +20,96 @@
   padding: 0.75rem 1rem !important;
   min-height: auto !important;
 }
+
+/* Completely hide info (ⓘ) icons and tooltips */
+.info,
+.info-icon,
+.tooltip,
+[data-tooltip],
+.nav-info,
+.menu-info,
+i[class*="info"],
+svg[class*="info"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Tighten bottom navigation spacing aggressively */
+footer,
+footer nav,
+footer .navigation,
+footer .pagination,
+footer .page-nav {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
+
+/* Remove large card feel */
+footer .card,
+footer .box,
+footer section {
+  padding: 0.75rem 1rem !important;
+  min-height: unset !important;
+}
+
+/* Reduce arrow/text container height */
+footer a,
+footer button {
+  padding: 0.4rem 0.6rem !important;
+  line-height: 1.3 !important;
+}
+/* Remove extra spacing around footer icons */
+/* --- Footer icon spacing: hard fix --- */
+
+/* Tighten the entire footer area */
+footer {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+  margin-top: 1rem !important;
+}
+
+/* Kill extra spacing in footer nav containers */
+footer nav,
+footer .nav,
+footer .pagination,
+footer .page-nav,
+footer .footer-nav {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Fix icon containers (arrows, svg icons) */
+footer a,
+footer button {
+  padding: 0.25rem 0.4rem !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+  min-height: unset !important;
+}
+
+/* SVG icons usually cause invisible vertical space */
+footer svg {
+  width: 1rem !important;
+  height: 1rem !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+}
+
+/* If icons are wrapped in spans/divs */
+footer span,
+footer .icon,
+footer .icon-wrapper {
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+}
+
+/* Remove card-like spacing if footer uses cards */
+footer .card,
+footer .box {
+  padding: 0.5rem 0.75rem !important;
+  margin: 0 !important;
+  min-height: unset !important;
+}
