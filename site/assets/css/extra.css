@@ -1,0 +1,22 @@
+/* Reduce excessive spacing in next/previous navigation */
+.page-nav,
+.pagination,
+.nav-page {
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+  padding: 0.75rem 1rem !important;
+}
+
+/* Reduce height of the navigation card */
+.page-nav a,
+.pagination a {
+  padding: 0.5rem 0.75rem !important;
+  line-height: 1.4 !important;
+}
+
+/* If the nav appears as a card */
+.page-nav .card,
+.pagination .card {
+  padding: 0.75rem 1rem !important;
+  min-height: auto !important;
+}
